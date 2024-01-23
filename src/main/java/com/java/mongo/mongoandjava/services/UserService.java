@@ -37,5 +37,10 @@ public class UserService {
     public User fromDTO( UserDTO userDto){//tranformando um UserDTO e User
     return new User(userDto.getId(), userDto.getName(), userDto.getEmail());
     }
+
+    public void deleteById(String id){
+        findById(id);
+        repository.deleteById(id);
+    }
     
 }
