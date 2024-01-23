@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +67,19 @@ public class UserResources {
     public ResponseEntity<Void> deleteById(@PathVariable String id){
         service.deleteById(id);
         return ResponseEntity.noContent().build();//retorna o codigo 204
+
+    }
+
+    @PutMapping(value = "/alter/{id}")
+    public ResponseEntity<Void> alter(@RequestBody UserDTO userDTO, @PathVariable String id){
+        User user = service.fromDTO(userDTO); //passando o userDTO para user (Segurança de dados)
+        user.setId(id);//para garantir que o objeto tenha o mesmo ID que a requisição
+        service.update(user);
+        return ResponseEntity.noContent().build();
+
+
+
+
 
     }
 
