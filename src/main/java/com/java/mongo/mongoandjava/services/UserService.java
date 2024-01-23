@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.java.mongo.mongoandjava.DTO.UserDTO;
 import com.java.mongo.mongoandjava.domain.User;
 import com.java.mongo.mongoandjava.repositorys.UserRepository;
 import com.java.mongo.mongoandjava.services.exception.ObjectNotFoundException;
@@ -27,6 +28,14 @@ public class UserService {
         Optional<User> us = repository.findById(id);
         return us.orElseThrow(() -> new ObjectNotFoundException("objeto nao encontrado"));
 
+    }
+
+    public User insert(User user){//inserindo no banco de dados
+        return repository.insert(user);
+    }
+
+    public User fromDTO( UserDTO userDto){//tranformando um UserDTO e User
+    return new User(userDto.getId(), userDto.getName(), userDto.getEmail());
     }
     
 }
