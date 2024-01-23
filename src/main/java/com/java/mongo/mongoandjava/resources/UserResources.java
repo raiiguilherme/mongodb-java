@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +33,17 @@ public class UserResources {
         //transformando a lista de User em uma nova lista de DTO utilizando expressoes lambda
         List<UserDTO> lisdto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok(lisdto);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<UserDTO> findById(@PathVariable String id){
+
+        User us = service.findById(id);
+        return ResponseEntity.ok(new UserDTO(us)); //transformando o user em UserDTO
+        
+        
+
+
     }
 
     
