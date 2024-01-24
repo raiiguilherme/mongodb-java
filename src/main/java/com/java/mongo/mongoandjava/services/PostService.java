@@ -1,5 +1,6 @@
 package com.java.mongo.mongoandjava.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class PostService {
        return op.get();
 
 
+    }
+
+    public List<Post> FindByTittle(String text){
+        return repository.findByTitleContainingIgnoreCase(text);
     }
     
 }
