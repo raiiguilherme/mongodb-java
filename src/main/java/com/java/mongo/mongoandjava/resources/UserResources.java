@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.java.mongo.mongoandjava.DTO.UserDTO;
+import com.java.mongo.mongoandjava.domain.Post;
 import com.java.mongo.mongoandjava.domain.User;
 import com.java.mongo.mongoandjava.services.UserService;
 
@@ -81,6 +82,16 @@ public class UserResources {
 
 
 
+    }
+
+    @GetMapping(value = "/{id}/posts")//URL da requisição
+    public ResponseEntity<List<Post>> findListById(@PathVariable String id){
+        User user = service.findById(id);
+        return ResponseEntity.ok(user.getPosts()); //retorno no corpo da requisição... 
+                                                    //a lista de posts que está associada ao meu usuario
+
+
+        
     }
 
     
