@@ -8,6 +8,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.java.mongo.mongoandjava.DTO.AuthorDTO;
+import com.java.mongo.mongoandjava.DTO.CommentDTO;
 import com.java.mongo.mongoandjava.domain.Post;
 import com.java.mongo.mongoandjava.domain.User;
 import com.java.mongo.mongoandjava.repositorys.PostRepository;
@@ -44,7 +45,13 @@ public class Instantiation implements CommandLineRunner {
 
         Post post1 = new Post(null,sss.parse("11/11/1111"), "Bom dia!",
          "hoje acordei daquele jeito!", new AuthorDTO(bob));//passando as informações do usuario para o userDTO para que haja mais segurança
-        postRepository.save(post1);
+       
+
+        CommentDTO comment = new CommentDTO("bom diaaa", sss.parse("10/12/2018"),new AuthorDTO(maria));
+
+
+            post1.getComments().add(comment); //associando um comentario com um post
+            postRepository.save(post1);
 
         bob.getPosts().add(post1);
         repository.save(bob);
