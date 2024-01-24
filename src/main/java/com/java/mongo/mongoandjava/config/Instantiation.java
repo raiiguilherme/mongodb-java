@@ -1,7 +1,6 @@
 package com.java.mongo.mongoandjava.config;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +45,9 @@ public class Instantiation implements CommandLineRunner {
         Post post1 = new Post(null,sss.parse("11/11/1111"), "Bom dia!",
          "hoje acordei daquele jeito!", new AuthorDTO(bob));//passando as informações do usuario para o userDTO para que haja mais segurança
         postRepository.save(post1);
+
+        bob.getPosts().add(post1);
+        repository.save(bob);
 
     }
     
