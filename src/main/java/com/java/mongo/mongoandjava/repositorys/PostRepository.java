@@ -1,5 +1,6 @@
 package com.java.mongo.mongoandjava.repositorys;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -23,6 +24,12 @@ public interface PostRepository extends MongoRepository<Post, String>{
     //muito importante respeitar os nomes para que de certo
     //camalCase!!
      List<Post> findByTitleContainingIgnoreCase(String text); //para procurar posts que tenham esse mesmo titulo
+
+    //busca com varios criterios 
+    //$and: operador E
+    //?1: campo que sera comparado
+     @Query("{ $and: [ { date: { $gte: ?1 } } , { date: { $lte: ?2 } } , { $or: [ {'title': { $regex: ?0, $options: 'i' }}, {'body': { $regex: ?0, $options: 'i' }},{'comments.text': { $regex: ?0, $options: 'i' }} ] } ] }")   
+     List<Post> fullSearch(String text, Date min, Date max);
 
     
 } 
